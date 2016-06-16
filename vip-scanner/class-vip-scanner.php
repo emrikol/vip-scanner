@@ -40,7 +40,11 @@ class VIP_Scanner {
 
 		do_action( 'vip_scanner_pre_theme_review', $theme, $review_type );
 
-		$scanner = new ThemeScanner( $theme, $review );
+		if ( '.zip' === strtolower( substr( $theme, -4) ) ) {
+			$scanner = new ZipScanner( $theme, $review );
+		} else {
+			$scanner = new ThemeScanner( $theme, $review );
+		}
 		$scanner->scan( $scanners );
 
 		do_action( 'vip_scanner_post_theme_review', $theme, $review_type, $scanner );
